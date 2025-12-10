@@ -3,46 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELN自動化報價系統</title>
+    <title>ELN自動化報價系統 | Yuanta Bank</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            --bg-body: #f4f6f9;
+            /* Yuanta Corporate Colors */
+            --yuanta-blue: #004a99;       /* 元大深藍 - 象徵專業穩健 */
+            --yuanta-orange: #f58220;     /* 元大橘 - 象徵活力創新 */
+            --yuanta-dark-blue: #003366;  /* 更深的藍用於背景 */
+            
+            --bg-body: #f4f7fa;
+            --card-border: #e9ecef;
         }
+        
         body {
             font-family: 'Noto Sans TC', sans-serif;
             background-color: var(--bg-body);
             color: #333;
             padding-bottom: 80px;
         }
-        /* Navbar */
-        .navbar { background: var(--primary-gradient); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .navbar-brand { font-weight: 700; color: white !important; letter-spacing: 1px;}
-        .role-badge { background: rgba(255,255,255,0.15); padding: 5px 15px; border-radius: 4px; color: white; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.3);}
 
-        /* Tabs */
-        .nav-tabs .nav-link { border: none; color: #666; font-weight: 500; padding: 12px 25px; background: transparent; }
-        .nav-tabs .nav-link.active { color: #1e3c72; border-bottom: 3px solid #1e3c72; background: transparent; font-weight: 700; }
-        .nav-tabs { border-bottom: 1px solid #ddd; margin-bottom: 20px; }
+        /* --- Navbar (Yuanta Blue Theme) --- */
+        .navbar { 
+            background: linear-gradient(to right, var(--yuanta-blue), var(--yuanta-dark-blue)); 
+            box-shadow: 0 2px 10px rgba(0, 51, 102, 0.2); 
+            padding: 0.8rem 0;
+        }
+        .navbar-brand { 
+            font-weight: 700; 
+            color: white !important; 
+            letter-spacing: 1px; 
+            display: flex; 
+            align-items: center; 
+        }
+        /* 角色徽章 */
+        .role-badge { 
+            background: rgba(255, 255, 255, 0.15); 
+            padding: 5px 15px; 
+            border-radius: 4px; 
+            color: white; 
+            font-size: 0.85rem; 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
-        /* Filter Bar */
-        .filter-bar { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        /* --- Login Page Styles (Blue & Orange) --- */
+        #login-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eef2f5;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 74, 153, 0.15);
+            overflow: hidden;
+            border-top: 5px solid var(--yuanta-orange); /* 頂部橘色亮點 */
+        }
+        .login-header {
+            background: var(--yuanta-blue);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        .login-header h3 { font-weight: 700; margin-bottom: 5px; }
+        .login-icon { color: var(--yuanta-orange); margin-bottom: 10px; }
 
-        /* Cards & Tags */
-        .custom-card { border: none; border-radius: 8px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.2s ease; height: 100%; border-top: 4px solid transparent; }
-        .custom-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .login-body { padding: 2.5rem; }
         
-        .ticker-tag { background-color: #e3f2fd; color: #0d47a1; padding: 2px 6px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 0.75rem; margin-right: 3px; border: 1px solid #bbdefb; display: inline-block; margin-bottom: 3px; }
+        /* 登入按鈕 - 使用元大橘 */
+        .btn-login {
+            background-color: var(--yuanta-orange);
+            border-color: var(--yuanta-orange);
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-login:hover {
+            background-color: #d96e11;
+            border-color: #d96e11;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(245, 130, 32, 0.3);
+        }
+
+        /* --- Tabs (Blue Text, Orange Active) --- */
+        .nav-tabs { border-bottom: 2px solid #dee2e6; margin-bottom: 20px; }
+        .nav-tabs .nav-link { 
+            border: none; 
+            color: #666; 
+            font-weight: 600; 
+            padding: 12px 25px; 
+            background: transparent; 
+        }
+        .nav-tabs .nav-link:hover { color: var(--yuanta-blue); }
+        .nav-tabs .nav-link.active { 
+            color: var(--yuanta-blue); 
+            border-bottom: 3px solid var(--yuanta-orange); /* 橘色底線 */
+            background: transparent; 
+            font-weight: 700; 
+        }
+
+        /* --- Buttons (Functional Colors) --- */
+        /* 模擬/操作類按鈕使用橘色系，增加活力 */
+        .btn-action-orange {
+            background-color: var(--yuanta-orange);
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        .btn-action-orange:hover { background-color: #e07010; color: white; }
+
+        /* 輔助/次要按鈕使用藍色外框 */
+        .btn-outline-yuanta {
+            color: var(--yuanta-blue);
+            border-color: var(--yuanta-blue);
+        }
+        .btn-outline-yuanta:hover {
+            background-color: var(--yuanta-blue);
+            color: white;
+        }
+
+        /* --- Cards --- */
+        .custom-card { 
+            border: 1px solid var(--card-border); 
+            border-radius: 8px; 
+            background: white; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02); 
+            transition: all 0.2s ease; 
+            height: 100%; 
+            border-top: 4px solid transparent; 
+        }
+        .custom-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0, 74, 153, 0.08); }
+        
+        /* 標題與圖示 */
+        .text-yuanta-blue { color: var(--yuanta-blue) !important; }
+        .text-yuanta-orange { color: var(--yuanta-orange) !important; }
 
         /* Status Colors */
         .st-inquiry { border-top-color: #6c757d; } .bg-inquiry { background-color: #6c757d; }
-        .st-quoted { border-top-color: #0dcaf0; } .bg-quoted { background-color: #0dcaf0; color: #000 !important; }
+        .st-quoted { border-top-color: var(--yuanta-blue); } .bg-quoted { background-color: var(--yuanta-blue); color: white !important; }
         .st-drafting { border-top-color: #6f42c1; } .bg-drafting { background-color: #6f42c1; }
-        .st-review { border-top-color: #0d6efd; } .bg-review { background-color: #0d6efd; }
+        .st-review { border-top-color: var(--yuanta-orange); } .bg-review { background-color: var(--yuanta-orange); }
         .st-setup { border-top-color: #ffc107; } .bg-setup { background-color: #ffc107; color: #000 !important; }
         .st-sign { border-top-color: #fd7e14; } .bg-sign { background-color: #fd7e14; }
         .st-ready { border-top-color: #dc3545; } .bg-ready { background-color: #dc3545; }
@@ -54,61 +163,68 @@
         .stepper::before { content: ''; position: absolute; top: 7px; left: 0; right: 0; height: 1px; background: #e0e0e0; z-index: 0; }
         .step-item { position: relative; z-index: 1; text-align: center; background: white; padding: 0 2px; min-width: 30px;}
         .step-dot { width: 14px; height: 14px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 4px; border: 2px solid white; box-shadow: 0 0 0 1px #e0e0e0; }
-        .step-item.active .step-dot { background: #0d6efd; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15); border-color: #0d6efd;}
-        .step-item.active { color: #0d6efd; font-weight: 700; }
-        .step-item.done .step-dot { background: #198754; box-shadow: none; border-color: #198754;}
+        /* Active Step: 使用橘色強調進度 */
+        .step-item.active .step-dot { background: var(--yuanta-orange); box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.2); border-color: var(--yuanta-orange);}
+        .step-item.active { color: var(--yuanta-orange); font-weight: 700; }
+        .step-item.done .step-dot { background: var(--yuanta-blue); box-shadow: none; border-color: var(--yuanta-blue);}
         
         /* Quotation Result Box */
-        .quote-result-box { background-color: #f8f9fa; border: 1px dashed #ced4da; border-radius: 6px; padding: 10px; margin-top: 10px; font-size: 0.85rem; }
-        .quote-result-box.active { background-color: #f0fff4; border: 1px solid #198754; }
+        .quote-result-box { background-color: #f8fbff; border: 1px dashed #cce0ff; border-radius: 6px; padding: 10px; margin-top: 10px; font-size: 0.85rem; }
+        .quote-result-box.active { background-color: #eefdf5; border: 1px solid #198754; }
         .coupon-rate { font-size: 1.2rem; font-weight: 800; color: #198754; font-family: 'Roboto Mono', monospace; }
         
-        /* Notional Input Highlight */
-        .notional-highlight { background-color: #fff3cd; border: 2px solid #ffc107; padding: 10px; border-radius: 8px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); } }
-
         /* Table View */
-        .table-view-container { background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); overflow: hidden; }
-        .custom-table thead { background-color: #f8f9fa; border-bottom: 2px solid #eee; }
-        .custom-table th { font-weight: 600; font-size: 0.85rem; color: #666; padding: 12px; white-space: nowrap;}
+        .table-view-container { background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee;}
+        .custom-table thead { background-color: #eef2f7; border-bottom: 2px solid #dde2e9; } /* 淺藍灰表頭 */
+        .custom-table th { font-weight: 700; font-size: 0.85rem; color: var(--yuanta-blue); padding: 12px; white-space: nowrap;}
         .custom-table td { vertical-align: middle; font-size: 0.9rem; padding: 12px; border-bottom: 1px solid #f1f1f1; }
-        .custom-table tr:hover { background-color: #f8f9fa; }
+        .custom-table tr:hover { background-color: #fffaf5; } /* Hover 變淡橘色 */
         .status-badge-sm { padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; color: white; display: inline-block; min-width: 80px; text-align: center; }
         
-        .form-label { font-size: 0.8rem; color: #666; font-weight: 500; margin-bottom: 4px; }
+        .form-label { font-size: 0.8rem; color: #555; font-weight: 600; margin-bottom: 4px; }
         
-        /* Login Page */
-        #login-section { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
-        .login-card { width: 100%; max-width: 400px; background: white; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); overflow: hidden; }
-        .login-header { background: #1e293b; padding: 2rem; text-align: center; color: white; }
-        .login-body { padding: 2rem; }
+        /* Header Consistency Utility */
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .page-title { font-size: 1.25rem; font-weight: 700; color: var(--yuanta-blue); margin: 0; display: flex; align-items: center; }
+        .page-title i { color: var(--yuanta-orange); margin-right: 10px; } 
+
+        /* Ticker Tag */
+        .ticker-tag { background-color: #eef6ff; color: var(--yuanta-blue); padding: 2px 6px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 0.75rem; margin-right: 3px; border: 1px solid #cce4ff; display: inline-block; margin-bottom: 3px; }
+        
+        /* Filter Bar */
+        .filter-bar { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #eee; }
+        
+        /* App Section */
         #app-section { display: none; }
     </style>
 </head>
 <body>
 
 <div id="login-section">
-    <div class="login-card">
+    <div class="login-card fade-in">
         <div class="login-header">
-            <h3 class="fw-bold mb-1"><i class="fas fa-chart-line me-2"></i>ELN 交易系統</h3>
-            <p class="mb-0 small opacity-75">Enterprise Login Portal</p>
+            <div class="mb-2 login-icon"><i class="fas fa-university fa-3x"></i></div>
+            <h3 class="mb-1">ELN 交易管理系統</h3>
+            <p class="mb-0 small opacity-75" style="letter-spacing: 2px;">YUANTA BANK</p>
         </div>
         <div class="login-body">
-            <div id="loginAlert" class="alert alert-danger py-2 small" style="display:none;"></div>
+            <div id="loginAlert" class="alert alert-danger py-2 small rounded-1 border-0 bg-danger text-white bg-opacity-75" style="display:none;"></div>
             <form id="loginForm">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="loginUser" placeholder="Account" required>
-                    <label for="loginUser">Account</label>
+                    <label for="loginUser"><i class="fas fa-user me-2 text-muted"></i>Account (帳號)</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="password" class="form-control" id="loginPass" placeholder="Password" required>
-                    <label for="loginPass">Password</label>
+                    <label for="loginPass"><i class="fas fa-lock me-2 text-muted"></i>Password (密碼)</label>
                 </div>
-                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="btnLoginBtn">
-                    登入系統 <i class="fas fa-sign-in-alt ms-1"></i>
+                <button type="submit" class="btn btn-login w-100 py-3 fs-6" id="btnLoginBtn">
+                    登入系統 <i class="fas fa-arrow-right ms-2"></i>
                 </button>
             </form>
-            <div class="text-center mt-3 text-muted small">Systex 2025 &copy; All Rights Reserved</div>
+            <div class="text-center mt-4 text-muted" style="font-size: 0.75rem;">
+                &copy; 2025 Yuanta Commercial Bank. Internal Use Only.
+            </div>
         </div>
     </div>
 </div>
@@ -116,19 +232,19 @@
 <div id="app-section">
     <nav class="navbar navbar-expand-lg mb-4 sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-robot me-2"></i>ELN自動化報價系統</a>
+            <a class="navbar-brand" href="#"><i class="fas fa-chart-line me-2 text-warning"></i>ELN自動化報價系統</a>
             <div class="d-flex align-items-center">
                 <span class="role-badge me-2">目前角色</span>
-                <select id="roleSwitch" class="form-select form-select-sm border-0 me-3" style="width: 150px; cursor: pointer;" onchange="renderCurrentSnapshot()">
+                <select id="roleSwitch" class="form-select form-select-sm border-0 me-3 shadow-none" style="width: 150px; cursor: pointer; background: rgba(255,255,255,0.9);" onchange="renderCurrentSnapshot()">
                     <option value="ADVISOR" selected>理專 (Sales)</option>
                     <option value="PM">PM (Product)</option>
                     <option value="TRUST">信託部 (Ops)</option>
                 </select>
                 <div class="btn-group">
-                    <button class="btn btn-warning btn-sm fw-bold shadow-sm" onclick="window.simulateIssuerReply()"><i class="fas fa-bolt me-1"></i>模擬上手回覆</button>
-                    <button class="btn btn-outline-light btn-sm fw-bold shadow-sm ms-2 border-warning text-warning" style="border-width: 1px;" onclick="window.clearAllData()"><i class="fas fa-trash-alt me-1"></i>清空資料</button>
+                    <button class="btn btn-warning btn-sm fw-bold shadow-sm" style="color: #003366;" onclick="window.simulateIssuerReply()"><i class="fas fa-bolt me-1"></i>模擬上手回覆</button>
+                    <button class="btn btn-outline-light btn-sm fw-bold shadow-sm ms-2" onclick="window.clearAllData()"><i class="fas fa-trash-alt me-1"></i>清空資料</button>
                 </div>
-                <button class="btn btn-sm btn-link text-white ms-3 text-decoration-none" onclick="window.doLogout()"><i class="fas fa-sign-out-alt me-1"></i>登出</button>
+                <button class="btn btn-sm btn-link text-white ms-3 text-decoration-none opacity-75 hover-opacity-100" onclick="window.doLogout()"><i class="fas fa-sign-out-alt me-1"></i>登出</button>
             </div>
         </div>
     </nav>
@@ -146,12 +262,14 @@
                 <div id="createFormContainer" class="row justify-content-center">
                     <div class="col-lg-10">
                         <div class="card shadow-sm border-0 rounded-3">
-                            <div class="card-header bg-light d-flex justify-content-between align-items-center py-3">
-                                <h6 class="m-0 text-primary fw-bold">建立結構型商品詢價單</h6>
-                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.fillDemoData()">帶入範例</button>
+                            <div class="card-header bg-light py-3">
+                                <div class="page-header m-0">
+                                    <h5 class="page-title"><i class="fas fa-file-contract"></i>建立結構型商品詢價單</h5>
+                                    <button type="button" class="btn btn-sm btn-outline-yuanta" onclick="window.fillDemoData()"><i class="fas fa-magic me-1"></i>帶入範例</button>
+                                </div>
                             </div>
                             <div class="card-body p-4">
-                                <div id="successMessage" class="alert alert-success fade-in text-center mb-4 shadow-sm" style="display: none; border-left: 5px solid #198754;">
+                                <div id="successMessage" class="alert alert-success fade-in text-center mb-4 shadow-sm" style="display: none; border-left: 5px solid #28a745;">
                                     <div class="d-flex align-items-center justify-content-center">
                                         <i class="fas fa-check-circle fa-2x me-3 text-success"></i>
                                         <div class="text-start"><h5 class="alert-heading fw-bold mb-1">送出成功！</h5><p class="mb-0 small">詢價單已建立 (Quote ID 自動生成)。</p></div>
@@ -180,7 +298,7 @@
                                         <div class="col-md-2"><label class="form-label">KI Barrier (%)</label><input type="number" class="form-control form-control-sm" id="ki" placeholder="65"></div>
                                         <div class="col-md-2"><label class="form-label">KO Type</label><select class="form-select form-select-sm" id="koType"><option value="Daily Memory">Daily Memory</option><option value="Daily Close">Daily Close</option><option value="Monthly">Monthly</option></select></div>
                                         <div class="col-md-2"><label class="form-label">Grtd Periods</label><input type="number" class="form-control form-control-sm" id="guaranteedPeriods" placeholder="2"></div>
-                                        <div class="col-12 mt-4"><button type="submit" class="btn btn-primary w-100 fw-bold"><i class="fas fa-paper-plane me-2"></i>送出詢價</button></div>
+                                        <div class="col-12 mt-4"><button type="submit" class="btn btn-action-orange w-100 py-2"><i class="fas fa-paper-plane me-2"></i>送出詢價</button></div>
                                     </div>
                                 </form>
                             </div>
@@ -190,7 +308,7 @@
             </div>
 
             <div class="tab-pane fade" id="search-pane" role="tabpanel">
-                <div class="filter-bar">
+                <div class="filter-bar mt-3">
                     <div class="row g-2 align-items-end mb-2">
                         <div class="col-md-3"><label class="form-label small fw-bold">Quote ID</label><input type="text" class="form-control form-control-sm" id="searchQuoteId" onkeyup="renderCurrentSnapshot()"></div>
                         <div class="col-md-3"><label class="form-label small fw-bold">客戶姓名</label><input type="text" class="form-control form-control-sm" id="searchClient" onkeyup="renderCurrentSnapshot()"></div>
@@ -219,11 +337,11 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
-                    <h6 class="text-muted m-0 me-3">查詢結果 <span class="badge bg-white text-dark border ms-1" id="totalCount">0 筆</span></h6>
+                <div class="page-header mt-4 mb-3">
+                    <h5 class="page-title"><i class="fas fa-list-ul"></i>案件查詢結果 <span class="badge bg-light text-dark border ms-2 fs-6" id="totalCount">0</span></h5>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-sm btn-outline-primary active" id="btnViewCard" onclick="switchView('card')"><i class="fas fa-th-large me-1"></i>卡片</button>
-                        <button type="button" class="btn btn-sm btn-outline-primary" id="btnViewList" onclick="switchView('list')"><i class="fas fa-list me-1"></i>清單</button>
+                        <button type="button" class="btn btn-sm btn-outline-yuanta active" id="btnViewCard" onclick="switchView('card')"><i class="fas fa-th-large me-1"></i>卡片</button>
+                        <button type="button" class="btn btn-sm btn-outline-yuanta" id="btnViewList" onclick="switchView('list')"><i class="fas fa-list me-1"></i>清單</button>
                     </div>
                 </div>
 
@@ -233,15 +351,15 @@
             </div>
 
             <div class="tab-pane fade" id="product-pane" role="tabpanel">
-                <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
-                    <h5 class="fw-bold text-dark m-0"><i class="fas fa-box-open me-2 text-primary"></i>在庫商品列表 (Active Products)</h5>
+                <div class="page-header mt-4 mb-3">
+                    <h5 class="page-title"><i class="fas fa-box-open"></i>在庫商品列表 (Active Products)</h5>
                     <button class="btn btn-success btn-sm fw-bold shadow-sm" onclick="window.exportProductCSV()">
                         <i class="fas fa-file-csv me-2"></i>匯出 CSV
                     </button>
                 </div>
                 
                 <div class="alert alert-info border-0 bg-light text-dark small mb-3">
-                    <i class="fas fa-info-circle me-1"></i> 本列表為商品規格總表 (Product Specification Master)。
+                    <i class="fas fa-info-circle me-1"></i> 此列表僅顯示已發行商品之基本結構規格 (Product Specification Master)。
                 </div>
 
                 <div class="table-view-container">
@@ -270,7 +388,7 @@
 <div class="modal fade" id="doubleCheckModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title fw-bold text-primary">確認下單內容</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-header"><h5 class="modal-title fw-bold text-yuanta-blue">確認下單內容</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
         <p class="small text-muted mb-3">請確認以下交易條件無誤，系統將自動發送下單郵件給上手銀行。</p>
         <table class="confirm-table w-100">
@@ -282,7 +400,7 @@
             <tr class="bg-light"><td class="ps-2 py-3 fw-bold text-dark">💰 最終成交總面額</td><td class="pe-2 py-3 confirm-val highlight-amount" id="md_notional"></td></tr>
         </table>
       </div>
-      <div class="modal-footer"><button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">取消</button><button type="button" class="btn btn-success btn-sm fw-bold" onclick="window.confirmAndSendEmail()">確認 & 發送</button></div>
+      <div class="modal-footer"><button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">取消</button><button type="button" class="btn btn-action-orange btn-sm" onclick="window.confirmAndSendEmail()">確認 & 發送</button></div>
     </div>
   </div>
 </div>
@@ -461,7 +579,7 @@
       else { renderListView(container, filteredDocs, currentRole); }
   };
 
-  // ★★★ 商品查詢維護 (簡化版：只留結構資訊) ★★★
+  // ★★★ 商品查詢維護 (更新版：僅保留結構規格) ★★★
   window.renderProductList = () => {
       if (!currentSnapshot) return;
       const tbody = document.getElementById('productTableBody');
@@ -484,7 +602,7 @@
           const tickers = data.tickers ? data.tickers.join(', ') : '-';
           const row = `
             <tr>
-                <td class="font-monospace fw-bold text-primary">${data.quoteId}</td>
+                <td class="font-monospace fw-bold text-yuanta-blue">${data.quoteId}</td>
                 <td>${data.productType} / ${data.wrapper} / ${data.currency}</td>
                 <td><small class="bg-light border px-1 rounded font-monospace">${tickers}</small></td>
                 <td>${data.strike}% / ${data.ki}% <small class="text-muted">(${data.kiType})</small></td>
@@ -495,7 +613,7 @@
       });
   };
 
-  // ★★★ 匯出 CSV (簡化版) ★★★
+  // ★★★ 匯出 CSV (更新版：精簡欄位) ★★★
   window.exportProductCSV = () => {
       if (!currentSnapshot) { alert('無資料可匯出'); return; }
       
@@ -543,7 +661,7 @@
           let notionalHtml = '';
           if (data.status === 'COMPLETED' && data.finalNotional) notionalHtml = `<div class="mt-2 text-center p-2 bg-light border rounded"><small>總面額</small><br><strong class="text-primary">${window.formatMoney(data.finalNotional)} ${data.currency}</strong></div>`;
 
-          html += `<div class="col-md-6 col-lg-4"><div class="custom-card ${statusConfig.cssClass}"><div class="p-3"><div class="d-flex justify-content-between align-items-start mb-2"><div><span class="badge ${statusConfig.badgeColor} mb-1">${statusConfig.text}</span><div class="small text-muted fw-bold">${data.quoteId}</div></div><div class="text-end"><div class="fw-bold">${data.clientName||'N/A'}</div><small>${data.productType}/${data.currency}</small></div></div>${getStepperHtml(statusConfig.stepIdx)}<div class="mb-2">${tickerHtml}</div><table class="table table-sm border-top small mb-1"><tr><td class="text-muted">Wrapper</td><td class="text-end">${data.wrapper||'-'}</td></tr><tr><td class="text-muted">Strike/KI</td><td class="text-end text-danger">${data.strike}%/${data.ki}%</td></tr></table>${quoteResultHtml}${notionalHtml}${actionBtns?`<div class="mt-2 pt-2 border-top">${actionBtns}</div>`:''}</div></div></div>`;
+          html += `<div class="col-md-6 col-lg-4"><div class="custom-card ${statusConfig.cssClass}"><div class="p-3"><div class="d-flex justify-content-between align-items-start mb-2"><div><span class="badge ${statusConfig.badgeColor} mb-1">${statusConfig.text}</span><div class="small text-muted fw-bold">${data.quoteId}</div></div><div class="text-end"><div class="fw-bold">${data.clientName||'N/A'}</div><small>${data.productType}/${data.currency}</small></div></div>${getStepperHtml(statusConfig.stepIdx)}<div class="mb-2">${tickerHtml}</div><table class="table table-sm border-top small mb-1"><tr><td class="text-muted">Wrapper</td><td class="text-end">${data.wrapper||'-'}</td></tr><tr><td class="text-muted">Strike/KI</td><td class="text-end text-danger">${data.strike}%/${data.ki}% <small class="text-muted">(${data.kiType})</small></td></tr><tr><td class="text-muted">Tenor / KO</td><td class="text-end">${data.tenor}M / ${data.koType || '-'}</td></tr></table>${quoteResultHtml}${notionalHtml}${actionBtns?`<div class="mt-2 pt-2 border-top">${actionBtns}</div>`:''}</div></div></div>`;
       });
       html += '</div>';
       container.innerHTML = html;
