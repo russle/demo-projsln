@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELN自動化報價系統 | Secure Login</title>
+    <title>ELN自動化報價系統</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
         :root {
             --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             --bg-body: #f4f6f9;
-            --login-bg: #0f172a;
         }
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -20,39 +19,6 @@
             color: #333;
             padding-bottom: 80px;
         }
-
-        /* --- Login Page Styles --- */
-        #login-section {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-        .login-card {
-            width: 100%;
-            max-width: 400px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-        .login-header {
-            background: #1e293b;
-            padding: 2rem;
-            text-align: center;
-            color: white;
-        }
-        .login-body {
-            padding: 2rem;
-        }
-        .form-floating > label { font-size: 0.9rem; }
-
-        /* --- Main App Styles (Hidden by default) --- */
-        #app-section {
-            display: none; /* 預設隱藏，登入後開啟 */
-        }
-
         /* Navbar */
         .navbar { background: var(--primary-gradient); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .navbar-brand { font-weight: 700; color: white !important; letter-spacing: 1px;}
@@ -66,7 +32,7 @@
         /* Filter Bar */
         .filter-bar { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
 
-        /* Cards & Tags */
+        /* Cards */
         .custom-card { border: none; border-radius: 8px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.2s ease; height: 100%; border-top: 4px solid transparent; }
         .custom-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         
@@ -101,13 +67,7 @@
         .notional-highlight { background-color: #fff3cd; border: 2px solid #ffc107; padding: 10px; border-radius: 8px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); } }
 
-        /* Modal Styles */
-        .modal-header { background-color: #f8f9fa; border-bottom: 1px solid #eee; }
-        .confirm-table td { padding: 8px 0; border-bottom: 1px dashed #eee; font-size: 0.9rem; }
-        .confirm-val { text-align: right; font-weight: 600; color: #333; }
-        .highlight-amount { font-size: 1.2rem; color: #198754; font-weight: 800; }
-
-        /* Table View Styles */
+        /* Table View */
         .table-view-container { background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); overflow: hidden; }
         .custom-table thead { background-color: #f8f9fa; border-bottom: 2px solid #eee; }
         .custom-table th { font-weight: 600; font-size: 0.85rem; color: #666; padding: 12px; }
@@ -116,12 +76,19 @@
         .status-badge-sm { padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; color: white; display: inline-block; min-width: 80px; text-align: center; }
         
         .form-label { font-size: 0.8rem; color: #666; font-weight: 500; margin-bottom: 4px; }
+        
+        /* Login Page */
+        #login-section { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .login-card { width: 100%; max-width: 400px; background: white; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); overflow: hidden; }
+        .login-header { background: #1e293b; padding: 2rem; text-align: center; color: white; }
+        .login-body { padding: 2rem; }
+        #app-section { display: none; }
     </style>
 </head>
 <body>
 
 <div id="login-section">
-    <div class="login-card fade-in">
+    <div class="login-card">
         <div class="login-header">
             <h3 class="fw-bold mb-1"><i class="fas fa-chart-line me-2"></i>ELN 交易系統</h3>
             <p class="mb-0 small opacity-75">Enterprise Login Portal</p>
@@ -131,19 +98,17 @@
             <form id="loginForm">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="loginUser" placeholder="Account" required>
-                    <label for="loginUser">Account (帳號)</label>
+                    <label for="loginUser">Account</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="password" class="form-control" id="loginPass" placeholder="Password" required>
-                    <label for="loginPass">Password (密碼)</label>
+                    <label for="loginPass">Password</label>
                 </div>
                 <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="btnLoginBtn">
                     登入系統 <i class="fas fa-sign-in-alt ms-1"></i>
                 </button>
             </form>
-            <div class="text-center mt-3 text-muted small">
-                Systex 2025 &copy; All Rights Reserved
-            </div>
+            <div class="text-center mt-3 text-muted small">Systex 2025 &copy; All Rights Reserved</div>
         </div>
     </div>
 </div>
@@ -153,47 +118,30 @@
         <div class="container">
             <a class="navbar-brand" href="#"><i class="fas fa-robot me-2"></i>ELN自動化報價系統</a>
             <div class="d-flex align-items-center">
-                
                 <span class="role-badge me-2">目前角色</span>
                 <select id="roleSwitch" class="form-select form-select-sm border-0 me-3" style="width: 150px; cursor: pointer;" onchange="renderCurrentSnapshot()">
                     <option value="ADVISOR" selected>理專 (Sales)</option>
                     <option value="PM">PM (Product)</option>
                     <option value="TRUST">信託部 (Ops)</option>
                 </select>
-
                 <div class="btn-group">
-                    <button class="btn btn-warning btn-sm fw-bold shadow-sm" onclick="window.simulateIssuerReply()">
-                        <i class="fas fa-bolt me-1"></i>模擬上手回覆
-                    </button>
-                    <button class="btn btn-outline-light btn-sm fw-bold shadow-sm ms-2 border-warning text-warning" style="border-width: 1px;" onclick="window.clearAllData()">
-                        <i class="fas fa-trash-alt me-1"></i>清空資料
-                    </button>
+                    <button class="btn btn-warning btn-sm fw-bold shadow-sm" onclick="window.simulateIssuerReply()"><i class="fas fa-bolt me-1"></i>模擬上手回覆</button>
+                    <button class="btn btn-outline-light btn-sm fw-bold shadow-sm ms-2 border-warning text-warning" style="border-width: 1px;" onclick="window.clearAllData()"><i class="fas fa-trash-alt me-1"></i>清空資料</button>
                 </div>
-
-                <button class="btn btn-sm btn-link text-white ms-3 text-decoration-none" onclick="window.doLogout()">
-                    <i class="fas fa-sign-out-alt me-1"></i>登出
-                </button>
-
+                <button class="btn btn-sm btn-link text-white ms-3 text-decoration-none" onclick="window.doLogout()"><i class="fas fa-sign-out-alt me-1"></i>登出</button>
             </div>
         </div>
     </nav>
 
     <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="create-tab" data-bs-toggle="tab" data-bs-target="#create-pane" type="button" role="tab"><i class="fas fa-edit me-2"></i>新增詢價</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search-pane" type="button" role="tab"><i class="fas fa-search me-2"></i>案件查詢</button>
-            </li>
+            <li class="nav-item" role="presentation"><button class="nav-link active" id="create-tab" data-bs-toggle="tab" data-bs-target="#create-pane" type="button" role="tab"><i class="fas fa-edit me-2"></i>新增詢價</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search-pane" type="button" role="tab"><i class="fas fa-search me-2"></i>案件查詢</button></li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="create-pane" role="tabpanel">
-                <div id="advisorOnlyWarning" class="alert alert-secondary text-center" style="display:none;">
-                    <i class="fas fa-info-circle me-2"></i>目前角色無法新增案件，請切換至「理專」角色。
-                </div>
-                
+                <div id="advisorOnlyWarning" class="alert alert-secondary text-center" style="display:none;"><i class="fas fa-info-circle me-2"></i>目前角色無法新增案件，請切換至「理專」角色。</div>
                 <div id="createFormContainer" class="row justify-content-center">
                     <div class="col-lg-10">
                         <div class="card shadow-sm border-0 rounded-3">
@@ -205,10 +153,7 @@
                                 <div id="successMessage" class="alert alert-success fade-in text-center mb-4 shadow-sm" style="display: none; border-left: 5px solid #198754;">
                                     <div class="d-flex align-items-center justify-content-center">
                                         <i class="fas fa-check-circle fa-2x me-3 text-success"></i>
-                                        <div class="text-start">
-                                            <h5 class="alert-heading fw-bold mb-1">送出成功！</h5>
-                                            <p class="mb-0 small">詢價單已建立 (Quote ID 自動生成)。請點擊上方黃色按鈕模擬上手回覆。</p>
-                                        </div>
+                                        <div class="text-start"><h5 class="alert-heading fw-bold mb-1">送出成功！</h5><p class="mb-0 small">詢價單已建立 (Quote ID 自動生成)。</p></div>
                                     </div>
                                 </div>
                                 <form id="orderForm">
@@ -245,20 +190,35 @@
 
             <div class="tab-pane fade" id="search-pane" role="tabpanel">
                 <div class="filter-bar">
+                    <div class="row g-2 align-items-end mb-2">
+                        <div class="col-md-3"><label class="form-label small fw-bold">Quote ID</label><input type="text" class="form-control form-control-sm" id="searchQuoteId" onkeyup="renderCurrentSnapshot()"></div>
+                        <div class="col-md-3"><label class="form-label small fw-bold">客戶姓名</label><input type="text" class="form-control form-control-sm" id="searchClient" onkeyup="renderCurrentSnapshot()"></div>
+                        <div class="col-md-3"><label class="form-label small fw-bold">理專</label><input type="text" class="form-control form-control-sm" id="searchAdvisor" onkeyup="renderCurrentSnapshot()"></div>
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold text-primary">案件狀態</label>
+                            <select class="form-select form-select-sm" id="searchStatus" onchange="renderCurrentSnapshot()">
+                                <option value="">全部狀態 (All)</option>
+                                <option value="INQUIRY">詢價中</option>
+                                <option value="QUOTED">已報價</option>
+                                <option value="DRAFTING">製單中</option>
+                                <option value="REVIEW">覆核中</option>
+                                <option value="SETUP">信託建檔</option>
+                                <option value="SIGN">等待簽名</option>
+                                <option value="READY_TO_ORDER">待下單</option>
+                                <option value="COMPLETED">交易完成</option>
+                                <option value="REJECTED">被退回</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row g-2 align-items-end">
-                        <div class="col-md-2"><label class="form-label small fw-bold">Quote ID</label><input type="text" class="form-control form-control-sm" id="searchQuoteId" onkeyup="renderCurrentSnapshot()"></div>
-                        <div class="col-md-2"><label class="form-label small fw-bold">客戶姓名</label><input type="text" class="form-control form-control-sm" id="searchClient" onkeyup="renderCurrentSnapshot()"></div>
-                        <div class="col-md-2"><label class="form-label small fw-bold">理專</label><input type="text" class="form-control form-control-sm" id="searchAdvisor" onkeyup="renderCurrentSnapshot()"></div>
-                        <div class="col-md-2"><label class="form-label small fw-bold">商品代碼</label><input type="text" class="form-control form-control-sm" id="searchTicker" placeholder="ex: TSLA" onkeyup="renderCurrentSnapshot()"></div>
-                        <div class="col-md-2"><label class="form-label small fw-bold">建立日期</label><input type="date" class="form-control form-control-sm" id="searchDate" onchange="renderCurrentSnapshot()"></div>
-                        <div class="col-md-2"><button class="btn btn-sm btn-outline-secondary w-100" onclick="window.resetFilters()">清除條件</button></div>
+                        <div class="col-md-3"><label class="form-label small fw-bold">商品代碼 (Ticker)</label><input type="text" class="form-control form-control-sm" id="searchTicker" placeholder="ex: TSLA" onkeyup="renderCurrentSnapshot()"></div>
+                        <div class="col-md-3"><label class="form-label small fw-bold">建立日期</label><input type="date" class="form-control form-control-sm" id="searchDate" onchange="renderCurrentSnapshot()"></div>
+                        <div class="col-md-3"></div> <div class="col-md-3"><button class="btn btn-sm btn-outline-secondary w-100" onclick="window.resetFilters()"><i class="fas fa-times me-1"></i>清除條件</button></div>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
-                    <div class="d-flex align-items-center">
-                        <h6 class="text-muted m-0 me-3">查詢結果 <span class="badge bg-white text-dark border ms-1" id="totalCount">0 筆</span></h6>
-                    </div>
+                    <h6 class="text-muted m-0 me-3">查詢結果 <span class="badge bg-white text-dark border ms-1" id="totalCount">0 筆</span></h6>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-sm btn-outline-primary active" id="btnViewCard" onclick="switchView('card')"><i class="fas fa-th-large me-1"></i>卡片</button>
                         <button type="button" class="btn btn-sm btn-outline-primary" id="btnViewList" onclick="switchView('list')"><i class="fas fa-list me-1"></i>清單</button>
@@ -276,27 +236,19 @@
 <div class="modal fade" id="doubleCheckModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold text-primary"><i class="fas fa-check-double me-2"></i>確認下單內容</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <div class="modal-header"><h5 class="modal-title fw-bold text-primary">確認下單內容</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
         <p class="small text-muted mb-3">請確認以下交易條件無誤，系統將自動發送下單郵件給上手銀行。</p>
         <table class="confirm-table w-100">
             <tr><td class="text-muted">Quote ID</td><td class="confirm-val" id="md_quoteId"></td></tr>
-            <tr><td class="text-muted">客戶 (Client)</td><td class="confirm-val" id="md_client"></td></tr>
+            <tr><td class="text-muted">客戶</td><td class="confirm-val" id="md_client"></td></tr>
             <tr><td class="text-muted">連結標的</td><td class="confirm-val" id="md_tickers"></td></tr>
-            <tr><td class="text-muted">履約價 / KI</td><td class="confirm-val" id="md_strike_ki"></td></tr>
+            <tr><td class="text-muted">Strike / KI</td><td class="confirm-val" id="md_strike_ki"></td></tr>
             <tr><td class="text-muted">幣別</td><td class="confirm-val" id="md_currency"></td></tr>
             <tr class="bg-light"><td class="ps-2 py-3 fw-bold text-dark">💰 最終成交總面額</td><td class="pe-2 py-3 confirm-val highlight-amount" id="md_notional"></td></tr>
         </table>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-success btn-sm fw-bold" onclick="window.confirmAndSendEmail()">
-            <i class="fas fa-paper-plane me-1"></i> 確認 & 發送下單信件
-        </button>
-      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">取消</button><button type="button" class="btn btn-success btn-sm fw-bold" onclick="window.confirmAndSendEmail()">確認 & 發送</button></div>
     </div>
   </div>
 </div>
@@ -308,7 +260,6 @@
   import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, serverTimestamp, orderBy, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-  // ★★★ 請替換成您的 Firebase Config ★★★
   const firebaseConfig = {
     apiKey: "AIzaSyBDWUTTcgGAbyX1_fUy02FWL91689e3gss",
     authDomain: "eln-demo.firebaseapp.com",
@@ -329,84 +280,45 @@
   let doubleCheckModal = null;
   let currentViewMode = 'card';
 
-  // --- Auth Login Logic ---
   document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const user = document.getElementById('loginUser').value;
       const pass = document.getElementById('loginPass').value;
+      const email = user.includes('@') ? user : `${user}@systex.demo`;
       const btn = document.getElementById('btnLoginBtn');
       const alertBox = document.getElementById('loginAlert');
-
-      // Add domain for Firebase Auth
-      const email = user.includes('@') ? user : `${user}@systex.demo`;
-
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 驗證中...';
-      alertBox.style.display = 'none';
-
-      try {
-          await signInWithEmailAndPassword(auth, email, pass);
-          // onAuthStateChanged will handle the UI switch
-      } catch (error) {
-          console.error(error);
-          alertBox.innerText = "登入失敗：帳號或密碼錯誤";
-          alertBox.style.display = 'block';
-          btn.disabled = false;
-          btn.innerHTML = '登入系統 <i class="fas fa-sign-in-alt ms-1"></i>';
-      }
+      btn.disabled = true; alertBox.style.display = 'none';
+      try { await signInWithEmailAndPassword(auth, email, pass); } 
+      catch (error) { console.error(error); alertBox.innerText = "登入失敗"; alertBox.style.display = 'block'; btn.disabled = false; }
   });
 
-  window.doLogout = () => {
-      signOut(auth);
-  }
+  window.doLogout = () => signOut(auth);
 
-  // --- Auth State Monitor ---
   onAuthStateChanged(auth, (user) => {
-      const loginSection = document.getElementById('login-section');
-      const appSection = document.getElementById('app-section');
-      
       if (user) {
-          // Logged In
-          loginSection.style.display = 'none';
-          appSection.style.display = 'block';
-          // Initialize App Logic
-          initApp(); 
+          document.getElementById('login-section').style.display = 'none';
+          document.getElementById('app-section').style.display = 'block';
+          initApp();
       } else {
-          // Logged Out
-          appSection.style.display = 'none';
-          loginSection.style.display = 'flex';
+          document.getElementById('app-section').style.display = 'none';
+          document.getElementById('login-section').style.display = 'flex';
           document.getElementById('loginForm').reset();
           document.getElementById('btnLoginBtn').disabled = false;
-          document.getElementById('btnLoginBtn').innerHTML = '登入系統 <i class="fas fa-sign-in-alt ms-1"></i>';
       }
   });
 
-  // --- Main App Logic (Wrapped in initApp to prevent running when logged out) ---
   function initApp() {
-      // Setup Listeners once
-      if(currentSnapshot) return; // Already initialized
-
+      if(currentSnapshot) return;
       const q = query(ordersCol, orderBy("createdAt", "desc"));
-      onSnapshot(q, (snapshot) => {
-          currentSnapshot = snapshot;
-          renderCurrentSnapshot();
-      });
+      onSnapshot(q, (snapshot) => { currentSnapshot = snapshot; renderCurrentSnapshot(); });
   }
 
-  window.formatMoney = (num) => {
-      if(!num) return '-';
-      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+  window.formatMoney = (num) => { if(!num) return '-'; return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
   window.switchView = (mode) => {
       currentViewMode = mode;
-      if(mode === 'card') {
-          document.getElementById('btnViewCard').classList.add('active');
-          document.getElementById('btnViewList').classList.remove('active');
-      } else {
-          document.getElementById('btnViewCard').classList.remove('active');
-          document.getElementById('btnViewList').classList.add('active');
-      }
+      document.getElementById('btnViewCard').classList.toggle('active', mode === 'card');
+      document.getElementById('btnViewList').classList.toggle('active', mode === 'list');
       renderCurrentSnapshot();
   };
 
@@ -432,6 +344,7 @@
       document.getElementById('searchQuoteId').value = '';
       document.getElementById('searchClient').value = '';
       document.getElementById('searchAdvisor').value = '';
+      document.getElementById('searchStatus').value = ''; // Reset Status
       document.getElementById('searchTicker').value = '';
       document.getElementById('searchDate').value = '';
       renderCurrentSnapshot();
@@ -442,7 +355,6 @@
       const dateStr = new Date().toISOString().slice(2,10).replace(/-/g,"");
       const randomCode = Math.floor(1000 + Math.random() * 9000); 
       const autoQuoteId = `Q-${dateStr}-${randomCode}`;
-
       const payload = {
           quoteId: autoQuoteId,
           clientName: document.getElementById('clientName').value,
@@ -461,45 +373,28 @@
           tenor: document.getElementById('tenor').value,
           strike: document.getElementById('strike').value,
           ki: document.getElementById('ki').value,
-          status: "INQUIRY", 
-          rejectReason: "",
-          quoteResult: null,
-          upstreamDocs: null, 
-          finalNotional: null,
+          status: "INQUIRY", rejectReason: "", quoteResult: null, upstreamDocs: null, finalNotional: null,
           createdAt: serverTimestamp() 
       };
-
-      try {
-          await addDoc(ordersCol, payload);
-          const form = document.getElementById('orderForm');
-          form.reset(); 
-          form.querySelectorAll('input').forEach(input => input.value = '');
-          const successMsg = document.getElementById('successMessage');
-          successMsg.style.display = 'block';
-          successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          setTimeout(() => { successMsg.style.display = 'none'; }, 3500);
-      } catch (err) { console.error(err); alert("Error: " + err.message); }
+      try { await addDoc(ordersCol, payload); document.getElementById('orderForm').reset(); document.getElementById('successMessage').style.display='block'; setTimeout(()=>document.getElementById('successMessage').style.display='none', 3000); } catch (err) { console.error(err); }
   });
 
   window.renderCurrentSnapshot = () => {
       const currentRole = document.getElementById('roleSwitch').value;
       const container = document.getElementById('ordersListContainer');
+      
+      // Update UI Permissions
       const formContainer = document.getElementById('createFormContainer');
       const warningMsg = document.getElementById('advisorOnlyWarning');
-      
-      if (currentRole === 'ADVISOR') {
-          formContainer.style.display = 'flex';
-          warningMsg.style.display = 'none';
-      } else {
-          formContainer.style.display = 'none';
-          warningMsg.style.display = 'block';
-      }
+      formContainer.style.display = (currentRole === 'ADVISOR') ? 'flex' : 'none';
+      warningMsg.style.display = (currentRole === 'ADVISOR') ? 'none' : 'block';
 
       if (!currentSnapshot) return;
 
       const sQuote = document.getElementById('searchQuoteId').value.toLowerCase();
       const sClient = document.getElementById('searchClient').value.toLowerCase();
       const sAdvisor = document.getElementById('searchAdvisor').value.toLowerCase();
+      const sStatus = document.getElementById('searchStatus').value; // ★★★ Get Status Filter
       const sTicker = document.getElementById('searchTicker').value.toLowerCase();
       const sDate = document.getElementById('searchDate').value; 
 
@@ -511,6 +406,7 @@
           if (sQuote && !data.quoteId.toLowerCase().includes(sQuote)) return;
           if (sClient && (!data.clientName || !data.clientName.toLowerCase().includes(sClient))) return;
           if (sAdvisor && !data.advisorName.toLowerCase().includes(sAdvisor)) return;
+          if (sStatus && data.status !== sStatus) return; // ★★★ Filter by Status
           if (sTicker) {
               const tickersStr = (data.tickers || []).join(" ").toLowerCase();
               if (!tickersStr.includes(sTicker)) return;
@@ -525,11 +421,8 @@
 
       document.getElementById('totalCount').innerText = `${filteredDocs.length} 筆`;
 
-      if (currentViewMode === 'card') {
-          renderCardView(container, filteredDocs, currentRole);
-      } else {
-          renderListView(container, filteredDocs, currentRole);
-      }
+      if (currentViewMode === 'card') { renderCardView(container, filteredDocs, currentRole); } 
+      else { renderListView(container, filteredDocs, currentRole); }
   };
 
   function renderCardView(container, docs, currentRole) {
@@ -539,61 +432,15 @@
           const tickerHtml = data.tickers ? data.tickers.map(t => `<span class="ticker-tag">${t}</span>`).join('') : '';
           const actionBtns = getActionButtons(currentRole, data.status, id, data.rejectReason);
           const dateDisplay = data.createdAt ? data.createdAt.toDate().toLocaleDateString() : '';
-
+          
           let quoteResultHtml = '';
-          if (data.status === 'INQUIRY') {
-               quoteResultHtml = `<div class="quote-result-box text-center text-muted"><i class="fas fa-spinner fa-spin me-2"></i>等待上手銀行報價...</div>`;
-          } else if (data.quoteResult) {
-               quoteResultHtml = `
-                 <div class="quote-result-box active">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                         <span class="badge bg-success">報價完成</span>
-                         <span class="text-muted small">KO: ${data.quoteResult.koBarrier}</span>
-                    </div>
-                    <div class="text-center mb-2">
-                        <div class="text-muted small text-uppercase">Coupon (p.a.)</div>
-                        <div class="coupon-rate">${data.quoteResult.coupon}</div>
-                    </div>
-                    <div class="d-flex justify-content-between border-top pt-2 small text-muted">
-                        <span>Memory: <i class="fas fa-check-circle text-success"></i></span>
-                        <span>Guarantee: <i class="fas fa-check-circle text-success"></i></span>
-                    </div>
-                 </div>
-               `;
-          }
-
+          if (data.status === 'INQUIRY') quoteResultHtml = `<div class="quote-result-box text-center text-muted"><i class="fas fa-spinner fa-spin me-2"></i>等待報價...</div>`;
+          else if (data.quoteResult) quoteResultHtml = `<div class="quote-result-box active"><div class="d-flex justify-content-between align-items-center mb-1"><span class="badge bg-success">已報價</span><small>KO:${data.quoteResult.koBarrier}</small></div><div class="text-center mb-1"><small>Coupon (p.a.)</small><div class="coupon-rate">${data.quoteResult.coupon}</div></div></div>`;
+          
           let notionalHtml = '';
-          if (data.status === 'COMPLETED' && data.finalNotional) {
-              notionalHtml = `<div class="mt-2 text-center p-2 bg-light border rounded"><span class="text-muted small">最終總面額</span><br><strong class="text-primary">${window.formatMoney(data.finalNotional)} ${data.currency}</strong></div>`;
-          }
+          if (data.status === 'COMPLETED' && data.finalNotional) notionalHtml = `<div class="mt-2 text-center p-2 bg-light border rounded"><small>總面額</small><br><strong class="text-primary">${window.formatMoney(data.finalNotional)} ${data.currency}</strong></div>`;
 
-          html += `
-            <div class="col-md-6 col-lg-4">
-                <div class="custom-card ${statusConfig.cssClass}">
-                    <div class="p-3">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <div>
-                                <span class="badge ${statusConfig.badgeColor} mb-1">${statusConfig.text}</span>
-                                <div class="small text-muted fw-bold">${data.quoteId}</div>
-                            </div>
-                            <div class="text-end">
-                                <div class="fw-bold">${data.clientName || 'N/A'}</div>
-                                <div class="badge bg-light text-dark border">${data.productType || 'FCN'} / ${data.currency}</div>
-                            </div>
-                        </div>
-                        ${getStepperHtml(statusConfig.stepIdx)}
-                        <div class="mb-2">${tickerHtml}</div>
-                        <table class="table table-sm border-top small mb-1" style="font-size:0.8rem">
-                            <tr><td class="text-muted">Wrapper</td><td class="text-end fw-bold">${data.wrapper || '-'}</td></tr>
-                            <tr><td class="text-muted">Strike / KI</td><td class="text-end fw-bold text-danger">${data.strike}% / ${data.ki}% (${data.kiType})</td></tr>
-                            <tr><td class="text-muted">Tenor / KO</td><td class="text-end">${data.tenor}M / ${data.koType || '-'}</td></tr>
-                        </table>
-                        ${quoteResultHtml}
-                        ${notionalHtml}
-                        ${actionBtns ? `<div class="mt-2 pt-2 border-top">${actionBtns}</div>` : ''}
-                    </div>
-                </div>
-            </div>`;
+          html += `<div class="col-md-6 col-lg-4"><div class="custom-card ${statusConfig.cssClass}"><div class="p-3"><div class="d-flex justify-content-between align-items-start mb-2"><div><span class="badge ${statusConfig.badgeColor} mb-1">${statusConfig.text}</span><div class="small text-muted fw-bold">${data.quoteId}</div></div><div class="text-end"><div class="fw-bold">${data.clientName||'N/A'}</div><small>${data.productType}/${data.currency}</small></div></div>${getStepperHtml(statusConfig.stepIdx)}<div class="mb-2">${tickerHtml}</div><table class="table table-sm border-top small mb-1"><tr><td class="text-muted">Wrapper</td><td class="text-end">${data.wrapper||'-'}</td></tr><tr><td class="text-muted">Strike/KI</td><td class="text-end text-danger">${data.strike}%/${data.ki}%</td></tr></table>${quoteResultHtml}${notionalHtml}${actionBtns?`<div class="mt-2 pt-2 border-top">${actionBtns}</div>`:''}</div></div></div>`;
       });
       html += '</div>';
       container.innerHTML = html;
@@ -601,14 +448,7 @@
 
   function renderListView(container, docs, currentRole) {
       if (docs.length === 0) { container.innerHTML = '<div class="text-center py-4">無資料</div>'; return; }
-      let html = `
-        <div class="table-view-container">
-            <div class="table-responsive">
-                <table class="table table-hover custom-table mb-0">
-                    <thead>
-                        <tr><th width="100">狀態</th><th width="140">Quote ID</th><th>客戶 / 產品</th><th>連結標的</th><th>Strike/KI</th><th>Coupon / KO</th><th>總面額</th><th width="200">操作</th></tr>
-                    </thead>
-                    <tbody>`;
+      let html = `<div class="table-view-container"><div class="table-responsive"><table class="table table-hover custom-table mb-0"><thead><tr><th width="100">狀態</th><th width="140">Quote ID</th><th>客戶 / 產品</th><th>連結標的</th><th>Strike/KI</th><th>Coupon / KO</th><th>總面額</th><th width="200">操作</th></tr></thead><tbody>`;
       docs.forEach(({id, data}) => {
           const statusConfig = getStatusConfig(data.status);
           const bgClass = statusConfig.badgeColor.replace('badge ', '').replace('text-dark', ''); 
@@ -634,16 +474,16 @@
 
   function getStatusConfig(status) {
       switch(status) {
-          case "INQUIRY":   return { cssClass: "st-inquiry", text: "詢價中", badgeColor: "bg-secondary text-white", stepIdx: 0 };
-          case "QUOTED":    return { cssClass: "st-quoted", text: "上手報價", badgeColor: "bg-info text-dark", stepIdx: 1 };
-          case "DRAFTING":  return { cssClass: "st-drafting", text: "製單中", badgeColor: "bg-primary text-white", stepIdx: 2 }; 
-          case "REVIEW":    return { cssClass: "st-review", text: "覆核中", badgeColor: "bg-primary text-white", stepIdx: 3 };
-          case "SETUP":     return { cssClass: "st-setup", text: "信託建檔", badgeColor: "bg-warning text-dark", stepIdx: 4 };
-          case "SIGN":      return { cssClass: "st-sign", text: "等待簽名", badgeColor: "bg-danger text-white", stepIdx: 5 }; 
+          case "INQUIRY": return { cssClass: "st-inquiry", text: "詢價中", badgeColor: "bg-secondary text-white", stepIdx: 0 };
+          case "QUOTED": return { cssClass: "st-quoted", text: "已報價", badgeColor: "bg-info text-dark", stepIdx: 1 };
+          case "DRAFTING": return { cssClass: "st-drafting", text: "製單中", badgeColor: "bg-primary text-white", stepIdx: 2 }; 
+          case "REVIEW": return { cssClass: "st-review", text: "覆核中", badgeColor: "bg-primary text-white", stepIdx: 3 };
+          case "SETUP": return { cssClass: "st-setup", text: "信託建檔", badgeColor: "bg-warning text-dark", stepIdx: 4 };
+          case "SIGN": return { cssClass: "st-sign", text: "等待簽名", badgeColor: "bg-danger text-white", stepIdx: 5 }; 
           case "READY_TO_ORDER": return { cssClass: "st-ready", text: "待下單", badgeColor: "bg-danger text-white", stepIdx: 5 }; 
           case "COMPLETED": return { cssClass: "st-completed", text: "交易完成", badgeColor: "bg-success text-white", stepIdx: 6 };
-          case "REJECTED":  return { cssClass: "st-inquiry", text: "被退回", badgeColor: "bg-danger text-white", stepIdx: 0 };
-          default:          return { cssClass: "", text: status, badgeColor: "bg-dark text-white", stepIdx: 0 };
+          case "REJECTED": return { cssClass: "st-inquiry", text: "被退回", badgeColor: "bg-danger text-white", stepIdx: 0 };
+          default: return { cssClass: "", text: status, badgeColor: "bg-dark text-white", stepIdx: 0 };
       }
   }
 
@@ -654,31 +494,22 @@
           let activeClass = idx <= currentIdx ? (idx === currentIdx ? 'active' : 'done') : '';
           html += `<div class="step-item ${activeClass}"><div class="step-dot"></div><div>${step}</div></div>`;
       });
-      html += '</div>';
-      return html;
+      html += '</div>'; return html;
   }
 
   function getActionButtons(role, status, id, rejectReason) {
       if (role === 'ADVISOR') {
-          if (status === 'REJECTED') {
-               return `<div class="text-danger small mb-1"><i class="fas fa-exclamation-triangle"></i> ${rejectReason}</div><button onclick="window.updateStatus('${id}', 'INQUIRY')" class="btn btn-sm btn-outline-dark w-100">重送</button>`;
-          }
+          if (status === 'REJECTED') return `<div class="text-danger small mb-1"><i class="fas fa-exclamation-triangle"></i> ${rejectReason}</div><button onclick="window.updateStatus('${id}', 'INQUIRY')" class="btn btn-sm btn-outline-dark w-100">重送</button>`;
           if (status === 'QUOTED') return `<button onclick="window.updateStatus('${id}', 'DRAFTING')" class="btn btn-sm btn-primary w-100">確認報價</button>`;
-          if (status === 'SIGN') {
-              return `<div class="d-flex gap-1"><button onclick="window.downloadPackage('${id}')" class="btn btn-sm btn-outline-primary w-50"><i class="fas fa-download"></i></button><button onclick="window.updateStatus('${id}', 'READY_TO_ORDER')" class="btn btn-sm btn-outline-success w-50">已簽名</button></div>`;
-          }
+          if (status === 'SIGN') return `<div class="d-flex gap-1"><button onclick="window.downloadPackage('${id}')" class="btn btn-sm btn-outline-primary w-50"><i class="fas fa-download"></i></button><button onclick="window.updateStatus('${id}', 'READY_TO_ORDER')" class="btn btn-sm btn-outline-success w-50">已簽名</button></div>`;
           if (status === 'READY_TO_ORDER') return `<span class="text-muted fst-italic small">等待下單...</span>`;
       }
       if (role === 'PM') {
           if (status === 'INQUIRY') return `<span class="text-muted small fst-italic">等待報價...</span>`; 
-          if (status === 'DRAFTING') {
-              return `<div class="d-flex gap-1"><button onclick="window.rejectOrder('${id}')" class="btn btn-sm btn-outline-danger w-50">退件</button><button onclick="window.contactUpstream('${id}')" class="btn btn-sm btn-primary w-50">確認</button></div>`;
-          }
+          if (status === 'DRAFTING') return `<div class="d-flex gap-1"><button onclick="window.rejectOrder('${id}')" class="btn btn-sm btn-outline-danger w-50">退件</button><button onclick="window.contactUpstream('${id}')" class="btn btn-sm btn-primary w-50">確認</button></div>`;
           if (status === 'REVIEW') return `<button onclick="window.updateStatus('${id}', 'SETUP')" class="btn btn-sm btn-primary w-100">覆核通過</button>`;
           if (status === 'SIGN') return `<div class="text-muted small text-center">等待簽名...</div>`; 
-          if (status === 'READY_TO_ORDER') {
-               return `<div class="notional-highlight mb-1 p-1"><input type="text" id="notional_${id}" class="form-control form-control-sm text-end" placeholder="總面額"></div><button onclick="window.prepareCompletion('${id}')" class="btn btn-sm btn-success w-100">確認交易</button>`;
-          }
+          if (status === 'READY_TO_ORDER') return `<div class="notional-highlight mb-1 p-1"><input type="text" id="notional_${id}" class="form-control form-control-sm text-end" placeholder="總面額"></div><button onclick="window.prepareCompletion('${id}')" class="btn btn-sm btn-success w-100">確認交易</button>`;
           if (status === 'COMPLETED') return `<button class="btn btn-sm btn-light border w-100" disabled>已歸檔</button>`;
       }
       if (role === 'TRUST') {
