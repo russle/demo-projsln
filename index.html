@@ -11,18 +11,19 @@
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            --bg-color: #f4f6f9;
+            --bg-body: #f4f6f9;
         }
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-body);
             color: #333;
             padding-bottom: 80px;
         }
+        
         /* Navbar */
         .navbar { background: var(--primary-gradient); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .navbar-brand { font-weight: 700; color: white !important; letter-spacing: 1px;}
-        .role-badge { background: rgba(255,255,255,0.15); padding: 5px 15px; border-radius: 4px; color: white; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.3);}
+        .role-badge { background: rgba(255,255,255,0.15); padding: 5px 15px; border-radius: 20px; color: white; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.3);}
 
         /* Tabs */
         .nav-tabs .nav-link { border: none; color: #666; font-weight: 500; padding: 12px 25px; background: transparent; }
@@ -30,68 +31,85 @@
         .nav-tabs { border-bottom: 1px solid #ddd; margin-bottom: 20px; }
 
         /* Filter Bar */
-        .filter-bar { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .filter-bar { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
 
-        /* Cards & Tags */
-        .custom-card { border: none; border-radius: 8px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.2s ease; height: 100%; border-top: 4px solid transparent; }
-        .custom-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        /* --- New Card Styles --- */
+        .custom-card { 
+            border: none; border-radius: 12px; background: white; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            transition: all 0.2s ease; height: 100%; 
+            overflow: hidden; /* For footer background */
+            border-top: 5px solid transparent; /* Dynamic Status Color */
+        }
+        .custom-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* Card Header Section */
+        .card-head { padding: 15px 20px 10px 20px; }
+        .quote-id { font-family: 'Roboto Mono', monospace; font-weight: 700; font-size: 1.1rem; color: #2c3e50; }
+        .client-info { font-size: 0.85rem; color: #6c757d; margin-top: 2px; }
         
-        .ticker-tag { background-color: #e3f2fd; color: #0d47a1; padding: 2px 6px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 0.75rem; margin-right: 3px; border: 1px solid #bbdefb; display: inline-block; margin-bottom: 3px; }
-
+        /* Status Badges */
+        .status-pill { padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        
         /* Status Colors */
-        .st-inquiry { border-top-color: #6c757d; }  
-        .st-quoted { border-top-color: #0dcaf0; }   
-        .st-drafting { border-top-color: #6f42c1; } 
-        .st-review { border-top-color: #0d6efd; }   
-        .st-setup { border-top-color: #ffc107; }    
-        .st-sign { border-top-color: #fd7e14; }     
-        .st-ready { border-top-color: #dc3545; } /* 待下單 (紅) */
-        .st-completed { border-top-color: #198754; }
+        .st-inquiry { border-top-color: #6c757d; } .bg-st-inquiry { background-color: #6c757d; }
+        .st-quoted { border-top-color: #0dcaf0; } .bg-st-quoted { background-color: #0dcaf0; color: #000 !important; }
+        .st-drafting { border-top-color: #6610f2; } .bg-st-drafting { background-color: #6610f2; }
+        .st-review { border-top-color: #0d6efd; } .bg-st-review { background-color: #0d6efd; }
+        .st-setup { border-top-color: #ffc107; } .bg-st-setup { background-color: #ffc107; color: #000 !important; }
+        .st-sign { border-top-color: #fd7e14; } .bg-st-sign { background-color: #fd7e14; }
+        .st-ready { border-top-color: #dc3545; } .bg-st-ready { background-color: #dc3545; }
+        .st-completed { border-top-color: #198754; } .bg-st-completed { background-color: #198754; }
+
+        /* Info Grid (Replace Table) */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px; padding: 0 20px; margin-bottom: 15px; }
+        .info-item { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
+        .info-label { font-size: 0.75rem; color: #999; text-transform: uppercase; }
+        .info-val { font-size: 0.9rem; font-weight: 600; color: #333; font-family: 'Roboto Mono', monospace; }
+        .val-highlight { color: #dc3545; }
+
+        /* Ticker Tags */
+        .ticker-container { padding: 0 20px 10px 20px; }
+        .ticker-tag { background-color: #e3f2fd; color: #0d47a1; padding: 3px 8px; border-radius: 4px; font-family: 'Roboto Mono', monospace; font-size: 0.8rem; margin-right: 4px; display: inline-block; margin-bottom: 4px; border: 1px solid #bbdefb;}
+
+        /* Quote Result Box */
+        .quote-result-wrapper { padding: 0 20px 15px 20px; }
+        .quote-result-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; position: relative; overflow: hidden; }
+        .quote-result-box::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #198754; }
+        .coupon-rate { font-size: 1.3rem; font-weight: 800; color: #198754; font-family: 'Roboto Mono', monospace; line-height: 1; }
 
         /* Stepper */
-        .stepper { display: flex; justify-content: space-between; margin-bottom: 15px; position: relative; font-size: 0.65rem; color: #ccc; }
-        .stepper::before { content: ''; position: absolute; top: 7px; left: 0; right: 0; height: 1px; background: #e0e0e0; z-index: 0; }
-        .step-item { position: relative; z-index: 1; text-align: center; background: white; padding: 0 2px; min-width: 30px;}
-        .step-dot { width: 14px; height: 14px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 4px; border: 2px solid white; box-shadow: 0 0 0 1px #e0e0e0; }
+        .stepper-wrapper { padding: 0 20px; margin-bottom: 15px; }
+        .stepper { display: flex; justify-content: space-between; position: relative; font-size: 0.65rem; color: #ccc; }
+        .stepper::before { content: ''; position: absolute; top: 6px; left: 0; right: 0; height: 1px; background: #e0e0e0; z-index: 0; }
+        .step-item { position: relative; z-index: 1; text-align: center; background: white; padding: 0 2px; }
+        .step-dot { width: 12px; height: 12px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 4px; border: 2px solid white; box-shadow: 0 0 0 1px #e0e0e0; }
         .step-item.active .step-dot { background: #0d6efd; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15); border-color: #0d6efd;}
         .step-item.active { color: #0d6efd; font-weight: 700; }
         .step-item.done .step-dot { background: #198754; box-shadow: none; border-color: #198754;}
-        
-        /* Quotation Result Box */
-        .quote-result-box { background-color: #f8f9fa; border: 1px dashed #ced4da; border-radius: 6px; padding: 10px; margin-top: 10px; font-size: 0.85rem; }
-        .quote-result-box.active { background-color: #f0fff4; border: 1px solid #198754; }
-        .coupon-rate { font-size: 1.2rem; font-weight: 800; color: #198754; font-family: 'Roboto Mono', monospace; }
-        
-        /* Notional Input Highlight */
-        .notional-highlight {
-            background-color: #fff3cd;
-            border: 2px solid #ffc107;
-            padding: 10px;
-            border-radius: 8px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); } }
 
+        /* Footer Action Area */
+        .card-footer-action { background-color: #f8f9fa; padding: 15px 20px; border-top: 1px solid #f0f0f0; }
+        .notional-box { background: #fff8e1; border: 1px solid #ffe082; color: #856404; padding: 10px; text-align: center; border-radius: 6px; margin-bottom: 10px; font-weight: bold; }
+        
         /* Form Styling */
         .form-label { font-size: 0.8rem; color: #666; font-weight: 500; margin-bottom: 4px; }
+        
+        /* Modal */
+        .confirm-table td { padding: 8px 0; border-bottom: 1px dashed #eee; font-size: 0.95rem; }
+        .confirm-val { text-align: right; font-weight: 600; color: #333; }
+        .highlight-amount { font-size: 1.2rem; color: #198754; font-weight: 800; }
         
         /* Animations */
         .fade-in { animation: fadeIn 0.5s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Modal Styles */
-        .modal-header { background-color: #f8f9fa; border-bottom: 1px solid #eee; }
-        .confirm-table td { padding: 8px 0; border-bottom: 1px dashed #eee; font-size: 0.9rem; }
-        .confirm-table tr:last-child td { border-bottom: none; }
-        .confirm-val { text-align: right; font-weight: 600; color: #333; }
-        .highlight-amount { font-size: 1.2rem; color: #198754; font-weight: 800; }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg mb-4 sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="#"><i class="fas fa-robot me-2"></i>ELN自動化報價系統</a>
+        <a class="navbar-brand" href="#"><i class="fas fa-chart-line me-2"></i>ELN自動化報價系統</a>
         <div class="d-flex align-items-center">
             
             <span class="role-badge me-2">目前角色</span>
@@ -153,33 +171,11 @@
 
                             <form id="orderForm">
                                 <div class="row g-3 mb-3 pb-3 border-bottom">
-                                    <div class="col-md-3">
-                                        <label class="form-label">Product Type</label>
-                                        <select class="form-select form-select-sm" id="productType">
-                                            <option value="FCN">FCN</option>
-                                            <option value="ELN">ELN</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Currency</label>
-                                        <select class="form-select form-select-sm" id="currency">
-                                            <option value="USD">USD</option>
-                                            <option value="AUD">AUD</option>
-                                            <option value="ZAR">ZAR</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Wrapper</label>
-                                        <input type="text" class="form-control form-control-sm" id="wrapper" placeholder="e.g. EMTN">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">理專 (建立者)</label>
-                                        <input type="text" class="form-control form-control-sm" id="advisorName" required>
-                                    </div>
-                                    <div class="col-md-12">
-                                         <label class="form-label">客戶姓名 (Client)</label>
-                                         <input type="text" class="form-control form-control-sm" id="clientName" placeholder="ex: 陳玉萍">
-                                    </div>
+                                    <div class="col-md-3"><label class="form-label">Product Type</label><select class="form-select form-select-sm" id="productType"><option value="FCN">FCN</option><option value="ELN">ELN</option></select></div>
+                                    <div class="col-md-3"><label class="form-label">Currency</label><select class="form-select form-select-sm" id="currency"><option value="USD">USD</option><option value="AUD">AUD</option><option value="ZAR">ZAR</option></select></div>
+                                    <div class="col-md-3"><label class="form-label">Wrapper</label><input type="text" class="form-control form-control-sm" id="wrapper" placeholder="e.g. EMTN"></div>
+                                    <div class="col-md-3"><label class="form-label">理專 (建立者)</label><input type="text" class="form-control form-control-sm" id="advisorName" required></div>
+                                    <div class="col-md-12"><label class="form-label">客戶姓名 (Client)</label><input type="text" class="form-control form-control-sm" id="clientName" placeholder="ex: 陳玉萍"></div>
                                 </div>
                                 
                                 <div class="row g-2 mb-3 bg-light p-3 rounded mx-1">
@@ -192,48 +188,13 @@
                                 </div>
 
                                 <div class="row g-3">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Tenor (m)</label>
-                                        <select class="form-select form-select-sm" id="tenor">
-                                            <option value="3">3</option>
-                                            <option value="6">6</option>
-                                            <option value="9">9</option>
-                                            <option value="12">12</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Strike (%)</label>
-                                        <input type="number" class="form-control form-control-sm" id="strike" placeholder="70">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">KI Type</label>
-                                        <select class="form-select form-select-sm" id="kiType">
-                                            <option value="EKI">EKI</option>
-                                            <option value="AKI">AKI</option>
-                                            <option value="N/A">N/A</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">KI Barrier (%)</label>
-                                        <input type="number" class="form-control form-control-sm" id="ki" placeholder="65">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">KO Type</label>
-                                        <select class="form-select form-select-sm" id="koType">
-                                            <option value="Daily Memory">Daily Memory</option>
-                                            <option value="Daily Close">Daily Close</option>
-                                            <option value="Monthly">Monthly</option>
-                                            <option value="N/A">N/A</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Grtd Periods</label>
-                                        <input type="number" class="form-control form-control-sm" id="guaranteedPeriods" placeholder="2">
-                                    </div>
-                                    
-                                    <div class="col-12 mt-4">
-                                        <button type="submit" class="btn btn-primary w-100 fw-bold"><i class="fas fa-paper-plane me-2"></i>送出詢價</button>
-                                    </div>
+                                    <div class="col-md-2"><label class="form-label">Tenor (m)</label><select class="form-select form-select-sm" id="tenor"><option value="3">3</option><option value="6">6</option><option value="9">9</option><option value="12">12</option></select></div>
+                                    <div class="col-md-2"><label class="form-label">Strike (%)</label><input type="number" class="form-control form-control-sm" id="strike" placeholder="70"></div>
+                                    <div class="col-md-2"><label class="form-label">KI Type</label><select class="form-select form-select-sm" id="kiType"><option value="EKI">EKI</option><option value="AKI">AKI</option><option value="N/A">N/A</option></select></div>
+                                    <div class="col-md-2"><label class="form-label">KI Barrier (%)</label><input type="number" class="form-control form-control-sm" id="ki" placeholder="65"></div>
+                                    <div class="col-md-2"><label class="form-label">KO Type</label><select class="form-select form-select-sm" id="koType"><option value="Daily Memory">Daily Memory</option><option value="Daily Close">Daily Close</option><option value="Monthly">Monthly</option></select></div>
+                                    <div class="col-md-2"><label class="form-label">Grtd Periods</label><input type="number" class="form-control form-control-sm" id="guaranteedPeriods" placeholder="2"></div>
+                                    <div class="col-12 mt-4"><button type="submit" class="btn btn-primary w-100 fw-bold"><i class="fas fa-paper-plane me-2"></i>送出詢價</button></div>
                                 </div>
                             </form>
                         </div>
@@ -243,31 +204,14 @@
         </div>
 
         <div class="tab-pane fade" id="search-pane" role="tabpanel">
-            <div class="filter-bar">
+            <div class="filter-bar border">
                 <div class="row g-2 align-items-end">
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold">Quote ID</label>
-                        <input type="text" class="form-control form-control-sm" id="searchQuoteId" onkeyup="renderCurrentSnapshot()">
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold">客戶姓名</label>
-                        <input type="text" class="form-control form-control-sm" id="searchClient" onkeyup="renderCurrentSnapshot()">
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold">理專</label>
-                        <input type="text" class="form-control form-control-sm" id="searchAdvisor" onkeyup="renderCurrentSnapshot()">
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold">商品代碼</label>
-                        <input type="text" class="form-control form-control-sm" id="searchTicker" placeholder="ex: TSLA" onkeyup="renderCurrentSnapshot()">
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold">建立日期</label>
-                        <input type="date" class="form-control form-control-sm" id="searchDate" onchange="renderCurrentSnapshot()">
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-sm btn-outline-secondary w-100" onclick="window.resetFilters()">清除條件</button>
-                    </div>
+                    <div class="col-md-2"><label class="form-label small fw-bold">Quote ID</label><input type="text" class="form-control form-control-sm" id="searchQuoteId" onkeyup="renderCurrentSnapshot()"></div>
+                    <div class="col-md-2"><label class="form-label small fw-bold">客戶姓名</label><input type="text" class="form-control form-control-sm" id="searchClient" onkeyup="renderCurrentSnapshot()"></div>
+                    <div class="col-md-2"><label class="form-label small fw-bold">理專</label><input type="text" class="form-control form-control-sm" id="searchAdvisor" onkeyup="renderCurrentSnapshot()"></div>
+                    <div class="col-md-2"><label class="form-label small fw-bold">商品代碼</label><input type="text" class="form-control form-control-sm" id="searchTicker" placeholder="ex: TSLA" onkeyup="renderCurrentSnapshot()"></div>
+                    <div class="col-md-2"><label class="form-label small fw-bold">建立日期</label><input type="date" class="form-control form-control-sm" id="searchDate" onchange="renderCurrentSnapshot()"></div>
+                    <div class="col-md-2"><button class="btn btn-sm btn-outline-secondary w-100" onclick="window.resetFilters()">清除條件</button></div>
                 </div>
             </div>
 
@@ -286,7 +230,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="doubleCheckModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="doubleCheckModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -339,6 +283,30 @@
   let pendingNotional = null;
   let doubleCheckModal = null;
 
+  // Utility: Money Format
+  window.formatMoney = (num) => {
+      if(!num) return '-';
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  // Role Auto-Switch Tab
+  window.handleRoleChange = () => {
+      const role = document.getElementById('roleSwitch').value;
+      const formContainer = document.getElementById('createFormContainer');
+      const warningMsg = document.getElementById('advisorOnlyWarning');
+      
+      if (role === 'ADVISOR') {
+          formContainer.style.display = 'flex';
+          warningMsg.style.display = 'none';
+      } else {
+          formContainer.style.display = 'none';
+          warningMsg.style.display = 'block';
+          const tabEl = document.querySelector('#myTab button[data-bs-target="#search-pane"]');
+          bootstrap.Tab.getInstance(tabEl).show();
+      }
+      renderCurrentSnapshot();
+  };
+
   // 1. Fill Demo
   window.fillDemoData = () => {
       document.getElementById('clientName').value = "陳玉萍";
@@ -358,7 +326,6 @@
       document.getElementById('tenor').value = "6";
   };
 
-  // 2. Reset Filters
   window.resetFilters = () => {
       document.getElementById('searchQuoteId').value = '';
       document.getElementById('searchClient').value = '';
@@ -424,9 +391,9 @@
   window.renderCurrentSnapshot = () => {
       const currentRole = document.getElementById('roleSwitch').value;
       const listDiv = document.getElementById('ordersList');
+      
       const formContainer = document.getElementById('createFormContainer');
       const warningMsg = document.getElementById('advisorOnlyWarning');
-      
       if (currentRole === 'ADVISOR') {
           formContainer.style.display = 'flex';
           warningMsg.style.display = 'none';
@@ -496,38 +463,39 @@
           // Final Notional
           let notionalHtml = '';
           if (data.status === 'COMPLETED' && data.finalNotional) {
-              notionalHtml = `<div class="mt-2 text-center p-2 bg-light border rounded"><span class="text-muted small">最終總面額</span><br><strong class="text-primary">${data.finalNotional} ${data.currency}</strong></div>`;
+              notionalHtml = `<div class="notional-box mt-3">成交總面額：<span style="font-size:1.1em">${window.formatMoney(data.finalNotional)}</span> ${data.currency}</div>`;
           }
 
           const html = `
             <div class="col-md-6 col-lg-4">
                 <div class="custom-card ${statusConfig.cssClass}">
-                    <div class="p-3">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <div>
-                                <span class="badge ${statusConfig.badgeColor} mb-1">${statusConfig.text}</span>
-                                <div class="small text-muted fw-bold">${data.quoteId}</div>
-                            </div>
-                            <div class="text-end">
-                                <div class="fw-bold">${data.clientName || 'N/A'}</div>
-                                <div class="badge bg-light text-dark border">${data.productType || 'FCN'} / ${data.currency}</div>
-                            </div>
+                    <div class="card-head d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="quote-id">${data.quoteId}</div>
+                            <div class="client-info"><i class="fas fa-user-tag me-1"></i>${data.clientName || 'N/A'} <span class="ms-1 badge bg-light text-dark border">${data.productType || 'FCN'} / ${data.currency}</span></div>
                         </div>
+                        <span class="status-pill ${statusConfig.bgClass}">${statusConfig.text}</span>
+                    </div>
 
-                        ${getStepperHtml(statusConfig.stepIdx)}
+                    <div class="stepper-wrapper">${getStepperHtml(statusConfig.stepIdx)}</div>
 
-                        <div class="mb-2">${tickerHtml}</div>
-                        <table class="table table-sm border-top small mb-1" style="font-size:0.8rem">
-                            <tr><td class="text-muted">Wrapper</td><td class="text-end fw-bold">${data.wrapper || '-'}</td></tr>
-                            <tr><td class="text-muted">Strike / KI</td><td class="text-end fw-bold text-danger">${data.strike}% / ${data.ki}% (${data.kiType})</td></tr>
-                            <tr><td class="text-muted">Tenor / KO</td><td class="text-end">${data.tenor}M / ${data.koType || '-'}</td></tr>
-                        </table>
-                        
+                    <div class="ticker-container">${tickerHtml}</div>
+                    
+                    <div class="info-grid">
+                        <div class="info-item"><span class="info-label">Wrapper</span><span class="info-val">${data.wrapper || '-'}</span></div>
+                        <div class="info-item"><span class="info-label">Tenor / KO</span><span class="info-val">${data.tenor}M / ${data.koType || '-'}</span></div>
+                        <div class="info-item"><span class="info-label">Strike / KI</span><span class="info-val val-highlight">${data.strike}% / ${data.ki}%</span></div>
+                        <div class="info-item"><span class="info-label">KI Type</span><span class="info-val">${data.kiType || '-'}</span></div>
+                    </div>
+                    
+                    <div class="quote-result-wrapper">
                         ${quoteResultHtml}
                         ${notionalHtml}
-
-                        ${actionBtns ? `<div class="mt-2 pt-2 border-top">${actionBtns}</div>` : ''}
                     </div>
+
+                    ${actionBtns ? `<div class="card-footer-action d-grid gap-2">${actionBtns}</div>` : ''}
+                    
+                    <div class="text-end px-3 pb-2"><small class="text-muted" style="font-size:0.7rem">Date: ${dateDisplay}</small></div>
                 </div>
             </div>
           `;
@@ -538,16 +506,16 @@
 
   function getStatusConfig(status) {
       switch(status) {
-          case "INQUIRY":   return { cssClass: "st-inquiry", text: "詢價中", badgeColor: "bg-secondary", stepIdx: 0 };
-          case "QUOTED":    return { cssClass: "st-quoted", text: "上手報價", badgeColor: "bg-info text-dark", stepIdx: 1 };
-          case "DRAFTING":  return { cssClass: "st-drafting", text: "製單中", badgeColor: "bg-primary", stepIdx: 2 }; 
-          case "REVIEW":    return { cssClass: "st-review", text: "覆核中", badgeColor: "bg-primary", stepIdx: 3 };
-          case "SETUP":     return { cssClass: "st-setup", text: "信託建檔", badgeColor: "bg-warning text-dark", stepIdx: 4 };
-          case "SIGN":      return { cssClass: "st-sign", text: "等待簽名", badgeColor: "bg-danger", stepIdx: 5 }; 
-          case "READY_TO_ORDER": return { cssClass: "st-ready", text: "待下單", badgeColor: "bg-danger", stepIdx: 5 }; 
-          case "COMPLETED": return { cssClass: "st-completed", text: "交易完成", badgeColor: "bg-success", stepIdx: 6 };
-          case "REJECTED":  return { cssClass: "st-inquiry", text: "被退回", badgeColor: "bg-danger", stepIdx: 0 };
-          default:          return { cssClass: "", text: status, badgeColor: "bg-dark", stepIdx: 0 };
+          case "INQUIRY":   return { cssClass: "st-inquiry", bgClass: "bg-st-inquiry", text: "詢價中", stepIdx: 0 };
+          case "QUOTED":    return { cssClass: "st-quoted", bgClass: "bg-st-quoted", text: "已報價", stepIdx: 1 };
+          case "DRAFTING":  return { cssClass: "st-drafting", bgClass: "bg-st-drafting", text: "製單中", stepIdx: 2 }; 
+          case "REVIEW":    return { cssClass: "st-review", bgClass: "bg-st-review", text: "覆核中", stepIdx: 3 };
+          case "SETUP":     return { cssClass: "st-setup", bgClass: "bg-st-setup", text: "信託建檔", stepIdx: 4 };
+          case "SIGN":      return { cssClass: "st-sign", bgClass: "bg-st-sign", text: "等待簽名", stepIdx: 5 }; 
+          case "READY_TO_ORDER": return { cssClass: "st-ready", bgClass: "bg-st-ready", text: "待下單", stepIdx: 5 }; 
+          case "COMPLETED": return { cssClass: "st-completed", bgClass: "bg-st-completed", text: "交易完成", stepIdx: 6 };
+          case "REJECTED":  return { cssClass: "st-inquiry", bgClass: "bg-danger", text: "被退回", stepIdx: 0 };
+          default:          return { cssClass: "", bgClass: "bg-dark", text: status, stepIdx: 0 };
       }
   }
 
@@ -565,35 +533,28 @@
   function getActionButtons(role, status, id, rejectReason) {
       if (role === 'ADVISOR') {
           if (status === 'REJECTED') {
-               return `<div class="text-danger small mb-1"><i class="fas fa-exclamation"></i> PM 意見：${rejectReason}</div><button onclick="window.updateStatus('${id}', 'INQUIRY')" class="btn btn-sm btn-outline-dark w-100">修正後重送詢價</button>`;
+               return `<div class="text-danger small mb-1 fw-bold"><i class="fas fa-exclamation-triangle"></i> 退件原因：${rejectReason}</div><button onclick="window.updateStatus('${id}', 'INQUIRY')" class="btn btn-sm btn-outline-dark">修正後重送詢價</button>`;
           }
-          if (status === 'QUOTED') return `<button onclick="window.updateStatus('${id}', 'DRAFTING')" class="btn btn-sm btn-primary w-100">確認報價 (進入製單)</button>`;
-          
+          if (status === 'QUOTED') return `<button onclick="window.updateStatus('${id}', 'DRAFTING')" class="btn btn-sm btn-primary">確認報價 (進入製單)</button>`;
           if (status === 'SIGN') {
               return `
-                <button onclick="window.downloadPackage('${id}')" class="btn btn-sm btn-primary w-100 mb-2"><i class="fas fa-download me-1"></i> 下載套印文件 (5份)</button>
-                <button onclick="window.updateStatus('${id}', 'READY_TO_ORDER')" class="btn btn-sm btn-outline-success w-100">已回傳簽名 (通知下單)</button>
+                <button onclick="window.downloadPackage('${id}')" class="btn btn-sm btn-outline-primary mb-1"><i class="fas fa-download me-1"></i> 下載套印文件 (5份)</button>
+                <button onclick="window.updateStatus('${id}', 'READY_TO_ORDER')" class="btn btn-sm btn-success">已回傳簽名 (通知下單)</button>
               `;
           }
-          if (status === 'READY_TO_ORDER') return `<span class="text-muted fst-italic small">等待 PM 最終下單...</span>`;
+          if (status === 'READY_TO_ORDER') return `<span class="text-muted fst-italic small text-center">等待 PM 最終下單...</span>`;
       }
       if (role === 'PM') {
-          if (status === 'INQUIRY') return `<span class="text-muted fst-italic small d-block text-center mb-1">等待上手回覆中...</span>`; 
+          if (status === 'INQUIRY') return `<span class="text-muted fst-italic small d-block text-center">等待上手回覆中...</span>`; 
+          if (status === 'DRAFTING') return `<div class="d-flex gap-2"><button onclick="window.rejectOrder('${id}')" class="btn btn-sm btn-outline-danger flex-grow-1">退件</button><button onclick="window.contactUpstream('${id}')" class="btn btn-sm btn-primary flex-grow-1"><i class="fas fa-envelope me-1"></i> 向此上手確認</button></div>`;
+          if (status === 'REVIEW') return `<button onclick="window.updateStatus('${id}', 'SETUP')" class="btn btn-sm btn-primary">覆核通過 (轉信託部)</button>`;
+          if (status === 'SIGN') return `<div class="text-center text-muted small"><i class="fas fa-clock me-1"></i>等待理專回傳簽名...</div>`; 
           
-          if (status === 'DRAFTING') {
-              return `<div class="d-flex gap-2"><button onclick="window.rejectOrder('${id}')" class="btn btn-sm btn-outline-danger flex-grow-1">退件</button><button onclick="window.contactUpstream('${id}')" class="btn btn-sm btn-primary flex-grow-1"><i class="fas fa-envelope me-1"></i> 向此上手確認</button></div>`;
-          }
-          
-          if (status === 'REVIEW') return `<button onclick="window.updateStatus('${id}', 'SETUP')" class="btn btn-sm btn-primary w-100">覆核通過 (轉信託部)</button>`;
-          
-          if (status === 'SIGN') return `<div class="text-center text-muted small mb-2"><i class="fas fa-clock"></i> 等待理專回傳...</div>`; 
-          
-          // ★★★ PM 在 READY_TO_ORDER 階段看見輸入框 ★★★
           if (status === 'READY_TO_ORDER') {
                return `
-                 <div class="notional-highlight mb-2">
-                     <label class="form-label small fw-bold text-dark">💰 請輸入最終成交總面額</label>
-                     <input type="text" id="notional_${id}" class="form-control form-control-sm text-end border-warning fw-bold" placeholder="e.g. 1,000,000">
+                 <div class="mb-2">
+                     <label class="form-label small text-danger fw-bold">💰 請輸入最終成交總面額</label>
+                     <input type="text" id="notional_${id}" class="form-control form-control-sm text-end border-danger" placeholder="e.g. 1,000,000">
                  </div>
                  <button onclick="window.prepareCompletion('${id}')" class="btn btn-sm btn-success w-100 fw-bold">確認交易 (Double Check)</button>
                `;
@@ -602,7 +563,7 @@
           if (status === 'COMPLETED') return `<button class="btn btn-sm btn-secondary w-100" disabled>已歸檔</button>`;
       }
       if (role === 'TRUST') {
-          if (status === 'SETUP') return `<button onclick="window.updateStatus('${id}', 'SIGN')" class="btn btn-sm btn-warning text-dark w-100">建檔完成 (通知理專)</button>`;
+          if (status === 'SETUP') return `<button onclick="window.updateStatus('${id}', 'SIGN')" class="btn btn-sm btn-warning text-dark">建檔完成 (通知理專)</button>`;
       }
       return "";
   }
@@ -621,21 +582,17 @@
       snapshot.forEach(async (docSnap) => {
           await updateDoc(doc(db, "eln_orders_v13", docSnap.id), { 
               status: "QUOTED",
-              quoteResult: { 
-                  coupon: (6 + Math.random() * 8).toFixed(2) + "%", 
-                  koBarrier: Math.random() > 0.5 ? "103%" : "100%",
-                  memory: true, guarantee: true
-              }
+              quoteResult: { coupon: (6 + Math.random() * 8).toFixed(2) + "%", koBarrier: Math.random() > 0.5 ? "103%" : "100%", memory: true, guarantee: true }
           });
       });
-      alert("已成功模擬上手銀行回報報價！\n(Coupon 已隨機生成)");
+      alert("✅ 已成功模擬上手銀行回報報價！\n(Coupon 已隨機生成)");
   };
 
   window.clearAllData = async () => {
       if(!confirm("⚠️ 警告：確定要清空所有資料嗎？此操作無法復原。")) return;
       const snapshot = await getDocs(query(ordersCol));
       snapshot.forEach(async (docSnap) => { await deleteDoc(doc(db, "eln_orders_v13", docSnap.id)); });
-      alert("資料已清空，您可以重新開始 Demo！");
+      alert("🗑️ 資料已清空！");
   };
 
   window.prepareCompletion = (docId) => {
@@ -649,10 +606,10 @@
       document.getElementById('md_tickers').innerText = docData.tickers.join(', ');
       document.getElementById('md_strike_ki').innerText = `${docData.strike}% / ${docData.ki}%`;
       document.getElementById('md_currency').innerText = docData.currency;
-      document.getElementById('md_notional').innerText = amount + " " + docData.currency;
+      document.getElementById('md_notional').innerText = window.formatMoney(amount) + " " + docData.currency;
 
       pendingOrderId = docId;
-      pendingNotional = amount;
+      pendingNotional = window.formatMoney(amount);
       doubleCheckModal = new bootstrap.Modal(document.getElementById('doubleCheckModal'));
       doubleCheckModal.show();
   };
@@ -667,18 +624,16 @@
 
   window.contactUpstream = async (docId) => {
       const docRef = doc(db, "eln_orders_v13", docId);
-      const docs = ['Issuer_TermSheet_Draft.pdf', 'Issuer_KID_Draft.pdf'];
       alert("📧 系統提示：已自動發信給上手銀行... \n📎 已收到回信並自動掛載 2 份附件。");
-      await updateDoc(docRef, { status: "REVIEW", upstreamDocs: docs });
+      await updateDoc(docRef, { status: "REVIEW", upstreamDocs: ['TermSheet.pdf', 'KID.pdf'] });
   };
 
   window.downloadPackage = (docId) => {
-      const fileList = ["1. 元大_商品說明書.pdf", "2. 元大_風險預告書.pdf", "3. 元大_產品申購書.pdf", "4. 上手_TermSheet.pdf", "5. 上手_KID_FactSheet.pdf"];
-      alert("📥 正在打包下載以下文件：\n\n" + fileList.join("\n"));
+      alert("📥 正在打包下載 5 份文件...");
   };
 
   window.rejectOrder = async (docId) => {
-      const reason = prompt("退件原因：", "文件缺漏 / 額度不足");
+      const reason = prompt("退件原因：");
       if (reason) {
           const docRef = doc(db, "eln_orders_v13", docId);
           await updateDoc(docRef, { status: "REJECTED", rejectReason: reason });
